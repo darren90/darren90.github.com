@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在上篇iOS 逆向：砸壳我们介绍了，使用Clutch进行砸壳，这篇介绍另一个使用dumpdecrypted 一、编译 dumpdecrypteddumpdecrypted 源码地址 我们要使用的是生成的动态库dumpdecrypted.dylib，要想得到dumpdecrypted.dylib这个动态库，只需要从github上下载代码，然后进行编译，生成dumpdecrypted.dylib即可。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 逆向&lt;3.1&gt;：使用dumpdecrypted砸壳">
+<meta property="og:url" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/index.html">
+<meta property="og:site_name" content="小镇青年">
+<meta property="og:description" content="在上篇iOS 逆向：砸壳我们介绍了，使用Clutch进行砸壳，这篇介绍另一个使用dumpdecrypted 一、编译 dumpdecrypteddumpdecrypted 源码地址 我们要使用的是生成的动态库dumpdecrypted.dylib，要想得到dumpdecrypted.dylib这个动态库，只需要从github上下载代码，然后进行编译，生成dumpdecrypted.dylib即可。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_crunch_09.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_03.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_04.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_01.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_02.png">
+<meta property="og:updated_time" content="2019-03-01T14:15:53.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 逆向&lt;3.1&gt;：使用dumpdecrypted砸壳">
+<meta name="twitter:description" content="在上篇iOS 逆向：砸壳我们介绍了，使用Clutch进行砸壳，这篇介绍另一个使用dumpdecrypted 一、编译 dumpdecrypteddumpdecrypted 源码地址 我们要使用的是生成的动态库dumpdecrypted.dylib，要想得到dumpdecrypted.dylib这个动态库，只需要从github上下载代码，然后进行编译，生成dumpdecrypted.dylib即可。">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3-1%3E-：使用dumpdecrypted砸壳/jailbreak_crunch_09.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/">
+
+
+
+
+
+  <title>iOS 逆向<3.1>：使用dumpdecrypted砸壳 | 小镇青年</3.1></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小镇青年</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 逆向<3.1>：使用dumpdecrypted砸壳</3.1></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T14:11:45+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在上篇<a href="./iOS-逆向&lt;3&gt;-砸壳.md">iOS 逆向<3>：砸壳</3></a>我们介绍了，使用<code>Clutch</code>进行砸壳，这篇介绍另一个使用<code>dumpdecrypted</code></p>
+<h2 id="一、编译-dumpdecrypted"><a href="#一、编译-dumpdecrypted" class="headerlink" title="一、编译 dumpdecrypted"></a>一、编译 dumpdecrypted</h2><p><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted 源码地址</a></p>
+<p>我们要使用的是生成的动态库<code>dumpdecrypted.dylib</code>，要想得到dumpdecrypted.dylib这个动态库，只需要从github上下载代码，然后进行编译，生成dumpdecrypted.dylib即可。下方就是使用make命令对dumpdecrypted的源码进行编译。</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/jailbreak_crunch_09.jpeg" alt=""></p>
+<p>make编译完成后，文件夹中就会多一个dumpdecrypted.dylib动态库，该动态库就是稍后我们砸壳使用的工具。</p>
+<h2 id="二、dumpecrypted-dylib-签名"><a href="#二、dumpecrypted-dylib-签名" class="headerlink" title="二、dumpecrypted.dylib 签名"></a>二、dumpecrypted.dylib 签名</h2><p>先找到已经在电脑上面安装的苹果开发者证书, 操作如下:</p>
+<p>列出可签名证书, 找到 mac 上面已经安装的证书</p>
+<pre><code>security find-identity -v -p codesigning
+</code></pre><p>为 dumpecrypted.dylib 签名, 命令如下:</p>
+<pre><code>codesign --force --verify --verbose --sign &quot;iPhone Developer: xxx xxxx (xxxxxxxxxx)&quot; dumpdecrypted.dylib
+</code></pre><p>其中, “iPhone Developer: xxx xxxx (xxxxxxxxxx)” 为你自己本机安装的开发者证书名称.</p>
+<h2 id="三-查找目标APP的Main-Bundle路径，Sandbox路径"><a href="#三-查找目标APP的Main-Bundle路径，Sandbox路径" class="headerlink" title="三 查找目标APP的Main Bundle路径，Sandbox路径"></a>三 查找目标APP的Main Bundle路径，Sandbox路径</h2><p>我们需要找到目标APP的Main Bundle路径，Sandbox路径。那么怎么在终端里查找呢。</p>
+<p>首先要通过通过ssh连接手机，执行</p>
+<pre><code>ssh root@10.105.12.136
+</code></pre><p>收入密码<code>alpine</code></p>
+<p>然后我们有两种方式查找目标APP的两个路径。</p>
+<h3 id="3-1-借助第三方工具"><a href="#3-1-借助第三方工具" class="headerlink" title="3.1: 借助第三方工具"></a>3.1: 借助第三方工具</h3><p>可以安装<a href="https://github.com/CoderMJLee/MJAppTools" target="_blank" rel="noopener">https://github.com/CoderMJLee/MJAppTools</a></p>
+<p>安装文档安装<code>MJAppTools</code>后，在通过ssh链接手机后执行</p>
+<pre><code>MJAppTools -l
+</code></pre><p>就会列出手机所安装的所有的App</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_03.png" alt=""></p>
+<p>可以看到<br>Main Bundle路径为：<code>/private/var/containers/Bundle/Application/3E376AA9-1F0E-4939-8D2D-933757835643/SOHUVideo.app</code></p>
+<p>Sandbox路径为：<code>/private/var/mobile/Containers/Data/Application/06D1A964-71D0-4849-B1F6-81126FA187FB</code></p>
+<h3 id="3-2-原始方式"><a href="#3-2-原始方式" class="headerlink" title="3.2: 原始方式"></a>3.2: 原始方式</h3><p>这种方式，必须先要在手机上打开目标App，</p>
+<p>终端执行，过滤出来搜狐APP</p>
+<pre><code>ps -e | grep -i so
+</code></pre><p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_04.png" alt=""></p>
+<p>我们找到了Main Bundle路径为：<code>/var/containers/Bundle/Application/3E376AA9-1F0E-4939-8D2D-933757835643/SOHUVideo.app/SOHUVideo</code></p>
+<p>下面查找 Documents 目录，需要通过cycript了。</p>
+<p>终端执行：</p>
+<pre><code>cycript -p SOHUVideo
+</code></pre><p>其中，<code>cycript -p XX</code>后面跟的就是，上面看到的<code>XX.app</code>的名字。</p>
+<p>然后执行cycript脚本：</p>
+<pre><code>[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
+</code></pre><p>找到Sandbox路径为：<code>/var/mobile/Containers/Data/Application/06D1A964-71D0-4849-B1F6-81126FA187FB/Documents/</code></p>
+<h2 id="四、砸壳"><a href="#四、砸壳" class="headerlink" title="四、砸壳"></a>四、砸壳</h2><h3 id="4-1：拷贝-dumpdecrypted-dylib-到目标APP-沙盒的Documents路径"><a href="#4-1：拷贝-dumpdecrypted-dylib-到目标APP-沙盒的Documents路径" class="headerlink" title="4.1：拷贝 dumpdecrypted.dylib 到目标APP 沙盒的Documents路径"></a>4.1：拷贝 dumpdecrypted.dylib 到目标APP 沙盒的Documents路径</h3><p>拷贝 dumpdecrypted.dylib 到目标APP 沙盒的Documents路径下：</p>
+<p>可以用scp指令</p>
+<pre><code>scp ~/dumpdecrypted.dylib root@10.105.12.136:/private/var/mobile/Containers/Data/Application/A35753BD-A755-47B4-9166-EEAF50CC7F1B/Documents/
+</code></pre><p>其中<code>10.105.12.136</code>为手机的ip地址，需要和电脑在同一个局域网中。<br><code>/private/var/mobile/Containers/Data/Application/A35753BD-A755-47B4-9166-EEAF50CC7F1B/Documents/</code>为搜狐视频APP的<code>Sandbox</code>沙盒路径</p>
+<p>也可以用<code>iFunBox</code>,找到目标路径直接拖拽。</p>
+<h3 id="4-1：开始砸"><a href="#4-1：开始砸" class="headerlink" title="4.1：开始砸"></a>4.1：开始砸</h3><p>cd到Document目录下</p>
+<pre><code>cd /private/var/mobile/Containers/Data/Application/A35753BD-A755-47B4-9166-EEAF50CC7F1B/Documents/
+</code></pre><p>执行</p>
+<pre><code>DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /private/var/containers/Bundle/Application/3E376AA9-1F0E-4939-8D2D-933757835643/SOHUVideo.app/SOHUVideo
+</code></pre><p>这个指令有点长，总结一下这个指令是在目标App的Sandbox路径的Documents目标下，执行: <code>DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib (Main Bundle路径)</code></p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_01.png" alt=""></p>
+<p>然后在Document路径下，会生成<code>SOHUVideo.decrypted</code>文件</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/jailbreak_dumpdecrypted_02.png" alt=""></p>
+<p>使用 <code>iFunBox</code> 或者 <code>scp</code> 命令将 <code>SOHUVideo.decrypted</code> 文件导出，即可进行后续的分析。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Tonny Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<6>-新工具链介绍/" rel="next" title="iOS 逆向<6>：新工具链介绍">
+                <i class="fa fa-chevron-left"></i> iOS 逆向<6>：新工具链介绍
+              </6></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/" rel="prev" title="iOS 逆向<7>：Theos的安装及Tweak项目介绍">
+                iOS 逆向<7>：Theos的安装及Tweak项目介绍 <i class="fa fa-chevron-right"></i>
+              </7></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tonny</p>
+              <p class="site-description motion-element" itemprop="description">小镇青年不年轻</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/darren90" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、编译-dumpdecrypted"><span class="nav-number">1.</span> <span class="nav-text">一、编译 dumpdecrypted</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、dumpecrypted-dylib-签名"><span class="nav-number">2.</span> <span class="nav-text">二、dumpecrypted.dylib 签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-查找目标APP的Main-Bundle路径，Sandbox路径"><span class="nav-number">3.</span> <span class="nav-text">三 查找目标APP的Main Bundle路径，Sandbox路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-借助第三方工具"><span class="nav-number">3.1.</span> <span class="nav-text">3.1: 借助第三方工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-原始方式"><span class="nav-number">3.2.</span> <span class="nav-text">3.2: 原始方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、砸壳"><span class="nav-number">4.</span> <span class="nav-text">四、砸壳</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1：拷贝-dumpdecrypted-dylib-到目标APP-沙盒的Documents路径"><span class="nav-number">4.1.</span> <span class="nav-text">4.1：拷贝 dumpdecrypted.dylib 到目标APP 沙盒的Documents路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1：开始砸"><span class="nav-number">4.2.</span> <span class="nav-text">4.1：开始砸</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tonny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

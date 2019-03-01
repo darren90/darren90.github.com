@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="砸壳, 指的是将从 App Store 上面下载的 App 进行破解的过程. 从 App Store 上下载的 ipa 包中的二进制文件是经过 Apple 加密(加壳)的，需要通过破解才能让我们对其 为所欲为, 这里的破解就是通常所说的砸壳. 准备工具 iFunBox 或者 itools Clutch 或 dumpdecrypted 越狱手机一台  安装iFunBoxiFunBox 是一个可以浏览">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 逆向&lt;3&gt;：砸壳">
+<meta property="og:url" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/index.html">
+<meta property="og:site_name" content="小镇青年">
+<meta property="og:description" content="砸壳, 指的是将从 App Store 上面下载的 App 进行破解的过程. 从 App Store 上下载的 ipa 包中的二进制文件是经过 Apple 加密(加壳)的，需要通过破解才能让我们对其 为所欲为, 这里的破解就是通常所说的砸壳. 准备工具 iFunBox 或者 itools Clutch 或 dumpdecrypted 越狱手机一台  安装iFunBoxiFunBox 是一个可以浏览">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_01.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_02.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_03.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_04.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_05.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_06.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_07.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_08.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_09.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_10.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_11.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_12.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_13.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_14.png">
+<meta property="og:updated_time" content="2019-02-12T15:07:27.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 逆向&lt;3&gt;：砸壳">
+<meta name="twitter:description" content="砸壳, 指的是将从 App Store 上面下载的 App 进行破解的过程. 从 App Store 上下载的 ipa 包中的二进制文件是经过 Apple 加密(加壳)的，需要通过破解才能让我们对其 为所欲为, 这里的破解就是通常所说的砸壳. 准备工具 iFunBox 或者 itools Clutch 或 dumpdecrypted 越狱手机一台  安装iFunBoxiFunBox 是一个可以浏览">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C3%3E-砸壳/jailbreak_crunch_01.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/">
+
+
+
+
+
+  <title>iOS 逆向<3>：砸壳 | 小镇青年</3></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小镇青年</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 逆向<3>：砸壳</3></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T11:38:40+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>砸壳, 指的是将从 App Store 上面下载的 App 进行破解的过程. 从 App Store 上下载的 ipa 包中的二进制文件是经过 Apple 加密(加壳)的，需要通过破解才能让我们对其 为所欲为, 这里的破解就是通常所说的砸壳.</p>
+<h3 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h3><ol>
+<li>iFunBox 或者 itools</li>
+<li>Clutch 或 dumpdecrypted</li>
+<li>越狱手机一台</li>
+</ol>
+<h3 id="安装iFunBox"><a href="#安装iFunBox" class="headerlink" title="安装iFunBox"></a>安装iFunBox</h3><p>iFunBox 是一个可以浏览 iPhone 文件目录的文件管理工具, 支持 MacOS 和 Windows 两个平台.</p>
+<p>点击 <a href="http://www.i-funbox.com/zh-cn_download.html" target="_blank" rel="noopener">iFunBox 下载地址</a> 可以去下载 MacOS 版本的 iFunBox，目前最新版本是 1.8,</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_01.jpeg" alt=""></p>
+<h4 id="安装-Apple-File-Conduit"><a href="#安装-Apple-File-Conduit" class="headerlink" title="安装 Apple File Conduit"></a>安装 Apple File Conduit</h4><p>要想使用 iFunBox 需要在 Cydia 中安装 <code>Apple File Conduit”2”</code></p>
+<p>在 Cydia 中搜索 <code>Apple File Conduit</code>, 如下图所示.</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_02.jpeg" alt=""></p>
+<p>如果你没有搜索到, 需要自己添加对应的软件源地址.</p>
+<p>点击【软件源】–编辑/添加 –输入源地址 apt.25pp.com – 添加源, 然后再去搜索 Apple File Conduit 安装.</p>
+<p>安装好之后, 使用 iFunBox, 才能正常查看越狱后 iPhone 的系统目录，否则是无法通过 iFunBox 查看系统路径的。</p>
+<h4 id="使用-iFunBox"><a href="#使用-iFunBox" class="headerlink" title="使用 iFunBox"></a>使用 iFunBox</h4><p>手机插上 USB 连接上 Mac 电脑, iFunBox 就可以识别你的手机，点击 Raw File System 其实是看不到 iPhone 的系统目录的, 接下来在 iPhone 中安装另外一个软件就可以了.</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_03.jpeg" alt=""></p>
+<h2 id="phone上的准备工作"><a href="#phone上的准备工作" class="headerlink" title="phone上的准备工作"></a>phone上的准备工作</h2><p>mac上一些准备工作介绍完毕，下面开始iphone上的准备工作了，</p>
+<h3 id="砸壳：安装-Clutch"><a href="#砸壳：安装-Clutch" class="headerlink" title="砸壳：安装 Clutch"></a>砸壳：安装 Clutch</h3><p><a href="https://github.com/KJCracks/Clutch" target="_blank" rel="noopener">Clutch 源码地址</a>, 然后自己在 MacOS 上面编译得到二进制文件.</p>
+<p><a href="https://github.com/KJCracks/Clutch/releases" target="_blank" rel="noopener">Clutch 二进制包</a>, 可直接使用, 目前最新 Clutch 版本为 2.0.4.</p>
+<p>下载完成后, 存放为 ~/Downloads/Clutch </p>
+<p>准备好越狱设备, 保证可以正常连接 wifi, 使用 scp 命令将 Clutch 二进制文件复制到设备的系统目录中, 命令如下:</p>
+<pre><code>scp ~/Downloads/Clutch root@10.105.12.42:/usr/bin
+</code></pre><p>其中, <code>10.105.12.42</code> 是越狱设备和Mac在同一个局域网连接 wifi 后的 IP 地址.</p>
+<p>也可使用 iFunBox 把Clutch传输到越狱手机的<code>/usr/bin</code>路径下</p>
+<h3 id="Clutch-的使用"><a href="#Clutch-的使用" class="headerlink" title="Clutch 的使用"></a>Clutch 的使用</h3><p>SSH 连接越狱设备, </p>
+<pre><code>ssh root@10.105.12.42
+</code></pre><p>输入密码：<code>alpine</code> </p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_04.jpeg" alt=""></p>
+<p>给Clutch权限</p>
+<pre><code>chmod +x /usr/bin/Clutch
+</code></pre><p>Clutch 命令选项如下:</p>
+<pre><code>-b --binary-dump     Only dump binary files from specified bundleID
+-d --dump            Dump specified bundleID into .ipa file
+-i --print-installed Print installed application
+--clean              Clean /var/tmp/clutch directory
+--version            Display version and exit
+-? --help            Display this help and exit
+-b 选项表示产出一个二进制文件, -d 选项表示产出一个 ipa 文件, -i 表示列出手机上面已经安装的 APP.
+</code></pre><p>首先，我们先看一下手机上已经安装的 App, 命令如下:</p>
+<pre><code>Clutch -i
+</code></pre><p>就会列出手机上已安装的 APP 列表，这些 APP 前面的数字表示指定的 id. -d 和 -b 选项都需要指定这些 id.</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_05.jpeg" alt=""></p>
+<h3 id="砸"><a href="#砸" class="headerlink" title="砸"></a>砸</h3><p>我们现在开始使用 Clutch 来对 APP 进行砸壳操作, 这里以已经安装的 App 序号为 6 的为例子.</p>
+<p>使用下面的命令开始砸壳:</p>
+<p>Clutch -d 6</p>
+<p>效果如下图所示:</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_06.jpeg" alt=""></p>
+<p>砸壳成功后会在 /private/var/mobile/Documents/Dumped 这个目录生成对应的 *.ipa 文件. 如下图所示</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_07.jpeg" alt=""></p>
+<p>如下图砸快手就失败了，所以<code>Clutch</code>也不是万能的，具体问题还要具体分析</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_08.jpeg" alt=""></p>
+<p>砸壳后的 ipa 文件, 可以从 iFunBox 中复制到 MacOS 的目录中, 然后你就可以对该 ipa 进行下一步操作了，后续的越狱工作, 在新更新的博客中会有提及。</p>
+<h2 id="三-使用dumpdecrypted砸壳"><a href="#三-使用dumpdecrypted砸壳" class="headerlink" title="三: 使用dumpdecrypted砸壳"></a>三: 使用<code>dumpdecrypted</code>砸壳</h2><p><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted 源码地址</a></p>
+<p>我们要使用的是生成的动态库<code>dumpdecrypted.dylib</code>，要想得到dumpdecrypted.dylib这个动态库，只需要从github上下载代码，然后进行编译，生成dumpdecrypted.dylib即可。下方就是使用make命令对dumpdecrypted的源码进行编译。</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_09.jpeg" alt=""></p>
+<p>make编译完成后，文件夹中就会多一个dumpdecrypted.dylib动态库，该动态库就是稍后我们砸壳使用的工具。</p>
+<h3 id="3-1-查找目标APP所在进程"><a href="#3-1-查找目标APP所在进程" class="headerlink" title="3.1 查找目标APP所在进程"></a>3.1 查找目标APP所在进程</h3><h2 id="砸壳后的分析工作"><a href="#砸壳后的分析工作" class="headerlink" title="砸壳后的分析工作"></a>砸壳后的分析工作</h2><p>使用<code>Clutch</code>和<code>dumpdecrypted</code>都是可以的，那个顺手用哪个，我们的关键认为是使用脱壳后的APP进行一些逆向工作，下面进行介绍。</p>
+<p>把上一步生成的<code>com.tencent.live4iphone-iOS9.0-(Clutch-2.0.4).ipa</code>导入电脑，后缀改为<code>com.tencent.live4iphone-iOS9.0-(Clutch-2.0.4).zip</code>,然后解压，</p>
+<p>然后右键<code>显示包内容</code>，根据关键字<code>live4iphone</code>,找到unix可执行文件：Mash-O文件</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_10.png" alt=""></p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_11.png" alt=""></p>
+<p>把<code>live4iphone</code>可执行文件，拷贝到一个专门的文件夹，进行后续的导出头文件以及查看实现逻辑</p>
+<h3 id="五：class-dump导出脱壳App的头文件"><a href="#五：class-dump导出脱壳App的头文件" class="headerlink" title="五：class-dump导出脱壳App的头文件"></a>五：class-dump导出脱壳App的头文件</h3><p><a href="http://stevenygard.com/projects/class-dump/" target="_blank" rel="noopener">class-dump 官方网址：http://stevenygard.com/projects/class-dump/</a></p>
+<p>class-dump的作用就是把脱壳后Mach-O文件的class信息给dump出来（把类信息给导出来，包括私有方法），生成对应的.h头文件，没有脱壳是无法生生成头文件的</p>
+<p>下载完工具包以后将<code>class-dump</code>文件复制到Mac的<code>/usr/local/bin</code>目录，这样在终端就能识别<code>class-dump</code>命令了</p>
+<p>执行赋权限的代码</p>
+<pre><code>chmod +x /usr/local/bin/class-dump
+</code></pre><p>命令的格式：class-dump -H Mach-O文件路径 -o 头文件存放目录</p>
+<p>ps： -H表示要生成头文件 -O用于制定头文件的存放目录</p>
+<p>下图是利用腾讯视频APP进行的头文件分析：</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_12.png" alt=""></p>
+<h3 id="六：使用Hopper生成伪码"><a href="#六：使用Hopper生成伪码" class="headerlink" title="六：使用Hopper生成伪码"></a>六：使用Hopper生成伪码</h3><p>class-dump可以把是把脱壳后APP的Mach-O，头文件导出来，如果我们想看一下实现逻辑就要使用Hopper了</p>
+<p>根据<code>class-dump</code>生成的头文件的方法，我们来看一下实现，如我们选择刚才Headers文件夹下的<code>QLThirdPartyVideoTipView</code></p>
+<p>这里看的比较模糊，</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_13.png" alt=""></p>
+<p>我们点击顶部菜单的<code>if(b) f(x)</code>菜单，即可生成较为接近伪码的逻辑。</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<3>-砸壳/jailbreak_crunch_14.png" alt=""></p>
+<p>至此，基本结束完整个砸壳以及导出头文件和查看逻辑实现的基本流程。学艺不精，如有疏漏，还望见谅。</p>
+<p><a href="https://github.com/nst/iOS-Runtime-Headers/releases" target="_blank" rel="noopener">各个版本xcode class dump的头文件</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Tonny Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<2>-越狱机用 Reveal 调试任意 App 的界面/" rel="next" title="iOS 逆向<2>：越狱机用 Reveal 调试任意 App 的界面">
+                <i class="fa fa-chevron-left"></i> iOS 逆向<2>：越狱机用 Reveal 调试任意 App 的界面
+              </2></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<4>-Cycript的介绍和使用/" rel="prev" title="iOS 逆向<4>：Cycript的介绍和使用">
+                iOS 逆向<4>：Cycript的介绍和使用 <i class="fa fa-chevron-right"></i>
+              </4></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tonny</p>
+              <p class="site-description motion-element" itemprop="description">小镇青年不年轻</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/darren90" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工具"><span class="nav-number">1.</span> <span class="nav-text">准备工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装iFunBox"><span class="nav-number">2.</span> <span class="nav-text">安装iFunBox</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Apple-File-Conduit"><span class="nav-number">2.1.</span> <span class="nav-text">安装 Apple File Conduit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-iFunBox"><span class="nav-number">2.2.</span> <span class="nav-text">使用 iFunBox</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#phone上的准备工作"><span class="nav-number"></span> <span class="nav-text">phone上的准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#砸壳：安装-Clutch"><span class="nav-number">1.</span> <span class="nav-text">砸壳：安装 Clutch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clutch-的使用"><span class="nav-number">2.</span> <span class="nav-text">Clutch 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#砸"><span class="nav-number">3.</span> <span class="nav-text">砸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-使用dumpdecrypted砸壳"><span class="nav-number"></span> <span class="nav-text">三: 使用dumpdecrypted砸壳</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-查找目标APP所在进程"><span class="nav-number">1.</span> <span class="nav-text">3.1 查找目标APP所在进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#砸壳后的分析工作"><span class="nav-number"></span> <span class="nav-text">砸壳后的分析工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#五：class-dump导出脱壳App的头文件"><span class="nav-number">1.</span> <span class="nav-text">五：class-dump导出脱壳App的头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六：使用Hopper生成伪码"><span class="nav-number">2.</span> <span class="nav-text">六：使用Hopper生成伪码</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tonny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

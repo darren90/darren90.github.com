@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="越狱，JailBreak,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="架构介绍模拟器32位处理器是i386架构， 模拟器64位处理器是x86_64架构， 真机32位处理器是armv7,或者armv7s架构，(armv7s是iPhone5C、armv7是iphone4之前的手机版本) 真机64位处理器是arm64架构。（iPhone5s之后的手机） 工具链介绍   工具分类 工具名称 使用平台     砸壳 dumpdecrypted, Clutch mac   查看">
+<meta name="keywords" content="越狱，JailBreak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS逆向&lt;1&gt;：逆向工程资料整理">
+<meta property="og:url" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/index.html">
+<meta property="og:site_name" content="小镇青年">
+<meta property="og:description" content="架构介绍模拟器32位处理器是i386架构， 模拟器64位处理器是x86_64架构， 真机32位处理器是armv7,或者armv7s架构，(armv7s是iPhone5C、armv7是iphone4之前的手机版本) 真机64位处理器是arm64架构。（iPhone5s之后的手机） 工具链介绍   工具分类 工具名称 使用平台     砸壳 dumpdecrypted, Clutch mac   查看">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-12T15:07:27.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS逆向&lt;1&gt;：逆向工程资料整理">
+<meta name="twitter:description" content="架构介绍模拟器32位处理器是i386架构， 模拟器64位处理器是x86_64架构， 真机32位处理器是armv7,或者armv7s架构，(armv7s是iPhone5C、armv7是iphone4之前的手机版本) 真机64位处理器是arm64架构。（iPhone5s之后的手机） 工具链介绍   工具分类 工具名称 使用平台     砸壳 dumpdecrypted, Clutch mac   查看">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/">
+
+
+
+
+
+  <title>iOS逆向<1>：逆向工程资料整理 | 小镇青年</1></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小镇青年</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS逆向<1>：逆向工程资料整理</1></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T10:18:37+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h2><p>模拟器32位处理器是<code>i386</code>架构，</p>
+<p>模拟器64位处理器是<code>x86_64</code>架构，</p>
+<p>真机32位处理器是<code>armv7</code>,或者<code>armv7s</code>架构，(<code>armv7s</code>是iPhone5C、<code>armv7</code>是iphone4之前的手机版本)</p>
+<p>真机64位处理器是<code>arm64</code>架构。（iPhone5s之后的手机）</p>
+<h2 id="工具链介绍"><a href="#工具链介绍" class="headerlink" title="工具链介绍"></a>工具链介绍</h2><table>
+<thead>
+<tr>
+<th>工具分类</th>
+<th>工具名称</th>
+<th>使用平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>砸壳</td>
+<td>dumpdecrypted, Clutch</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>查看头文件</td>
+<td>class-dump</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>反汇编</td>
+<td>Hopper, IDA Pro</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>调试，运行一些动态js脚本，查看APP运行时的信息</td>
+<td>Cycript, gdb</td>
+<td>iPhone</td>
+</tr>
+<tr>
+<td>Theos进行动态hook</td>
+<td>Tweak</td>
+<td>mac </td>
+</tr>
+<tr>
+<td>UI分析</td>
+<td>Reveal</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>网络分析</td>
+<td>Charles</td>
+<td>mac</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其它博客资源推荐"><a href="#其它博客资源推荐" class="headerlink" title="其它博客资源推荐"></a>其它博客资源推荐</h2><table>
+<thead>
+<tr>
+<th>Blog</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蒸米的文章</td>
+<td><a href="https://github.com/zhengmin1989/MyArticles" target="_blank" rel="noopener">https://github.com/zhengmin1989/MyArticles</a></td>
+</tr>
+<tr>
+<td>念茜（极客学院 Wiki ）</td>
+<td><a href="http://wiki.jikexueyuan.com/project/ios-security-defense/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/ios-security-defense/</a></td>
+</tr>
+<tr>
+<td>杨君的小黑屋</td>
+<td><a href="http://blog.imjun.net/" target="_blank" rel="noopener">http://blog.imjun.net/</a></td>
+</tr>
+<tr>
+<td>Alone_Monkey</td>
+<td><a href="http://www.blogfshare.com/" target="_blank" rel="noopener">http://www.blogfshare.com/</a></td>
+</tr>
+<tr>
+<td>iPhoneDevWiki</td>
+<td><a href="http://iphonedevwiki.net/index.php/Main_Page" target="_blank" rel="noopener">http://iphonedevwiki.net/index.php/Main_Page</a></td>
+</tr>
+</tbody>
+</table>
+<p>参考资料：</p>
+<p><a href="http://niyaoyao.me/2017/05/09/Learning-Reverse-From-Today-D4/" target="_blank" rel="noopener">iOS 逆向工程资料整理</a></p>
+<p><a href="https://www.jianshu.com/p/9bffa160aa63" target="_blank" rel="noopener">iOS逆向开发学习资料整理
+</a></p>
+<p><a href="https://juejin.im/post/5bc5446b6fb9a05d1d2e3938" target="_blank" rel="noopener">iOS逆向之旅 — 总纲</a> - 掘金里的总结，不错的</p>
+<p><a href="https://bbs.pediy.com/thread-209014.htm" target="_blank" rel="noopener">iOS安全些许经验和学习笔记</a> - AloneMonkey 的总结</p>
+<p><a href="https://wizardforcel.gitbooks.io/ios-sec-wiki/content/chapter1/chapter1.html" target="_blank" rel="noopener">iOS逆向工程简介</a> - 系统介绍了越狱的相关技术栈，但部分技术不够详细，知识点较旧</p>
+<p><a href="http://www.cocoachina.com/ios/20180517/23408.html" target="_blank" rel="noopener">ios 逆向工程-浅析</a> - 整个链路的介绍，还可以的</p>
+<p><a href="https://blog.csdn.net/heiby/article/details/51792151" target="_blank" rel="noopener">移动App入侵与逆向破解技术－iOS篇</a> - CSDN上的大作，还可以的</p>
+<p><a href="https://www.jianshu.com/p/e2eef5f9a09d" target="_blank" rel="noopener">iOS逆向工程优秀博客汇集(持续更新…)</a> - 其实已经没有更新了，不过内容值得参考</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Tonny Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/越狱，JailBreak/" rel="tag"># 越狱，JailBreak</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/01/2019/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<2>-越狱机用 Reveal 调试任意 App 的界面/" rel="prev" title="iOS 逆向<2>：越狱机用 Reveal 调试任意 App 的界面">
+                iOS 逆向<2>：越狱机用 Reveal 调试任意 App 的界面 <i class="fa fa-chevron-right"></i>
+              </2></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tonny</p>
+              <p class="site-description motion-element" itemprop="description">小镇青年不年轻</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/darren90" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构介绍"><span class="nav-number">1.</span> <span class="nav-text">架构介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具链介绍"><span class="nav-number">2.</span> <span class="nav-text">工具链介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它博客资源推荐"><span class="nav-number">3.</span> <span class="nav-text">其它博客资源推荐</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tonny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

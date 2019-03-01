@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="逆向,Theos,Tweak,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="名词介绍1. TweakiOS越狱开发中，各种破解补丁的统称为Tweak,通常意义上我们说的越狱开发,都是指开发一个Tweak.基本上,tweak都依赖于一个名叫cydia Substrate的动态库,作者是Jay Freeman (@saurik),它的主要功能是hook某个App，修改代码比如替换其中方法的实现，Cydia上的tweak都是基于cydia Substrate实现的。 Tweak">
+<meta name="keywords" content="逆向,Theos,Tweak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 逆向&lt;7&gt;：Theos的安装及Tweak项目介绍">
+<meta property="og:url" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/index.html">
+<meta property="og:site_name" content="小镇青年">
+<meta property="og:description" content="名词介绍1. TweakiOS越狱开发中，各种破解补丁的统称为Tweak,通常意义上我们说的越狱开发,都是指开发一个Tweak.基本上,tweak都依赖于一个名叫cydia Substrate的动态库,作者是Jay Freeman (@saurik),它的主要功能是hook某个App，修改代码比如替换其中方法的实现，Cydia上的tweak都是基于cydia Substrate实现的。 Tweak">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_01.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_02.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_03.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_04.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_05.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_06.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_07.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_08.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_09.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_10.png">
+<meta property="og:updated_time" content="2019-03-01T14:15:53.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 逆向&lt;7&gt;：Theos的安装及Tweak项目介绍">
+<meta name="twitter:description" content="名词介绍1. TweakiOS越狱开发中，各种破解补丁的统称为Tweak,通常意义上我们说的越狱开发,都是指开发一个Tweak.基本上,tweak都依赖于一个名叫cydia Substrate的动态库,作者是Jay Freeman (@saurik),它的主要功能是hook某个App，修改代码比如替换其中方法的实现，Cydia上的tweak都是基于cydia Substrate实现的。 Tweak">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向%3C7%3E-Theos的安装及Tweak项目介绍/jailbreak_theos_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/">
+
+
+
+
+
+  <title>iOS 逆向<7>：Theos的安装及Tweak项目介绍 | 小镇青年</7></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小镇青年</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 逆向<7>：Theos的安装及Tweak项目介绍</7></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T17:10:11+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="名词介绍"><a href="#名词介绍" class="headerlink" title="名词介绍"></a>名词介绍</h2><h3 id="1-Tweak"><a href="#1-Tweak" class="headerlink" title="1. Tweak"></a>1. Tweak</h3><p>iOS越狱开发中，各种破解补丁的统称为Tweak,通常意义上我们说的越狱开发,都是指开发一个Tweak.<br>基本上,tweak都依赖于一个名叫<a href="http://www.cydiasubstrate.com/" target="_blank" rel="noopener">cydia Substrate</a>的动态库,作者是Jay Freeman (@saurik),它的主要功能是hook某个App，修改代码比如替换其中方法的实现，Cydia上的tweak都是基于cydia Substrate实现的。</p>
+<p>Tweak的本质：</p>
+<p>tweak的实质就是iOS平台的动态库。iOS平台上有两种形势的动态库，dylib与framework。Framework这种开发者用的比较多，而dylib这种就相对比较少一点，比如libsqlite.dylib，libz.dylib等。而tweak用的正是dylib这种形势的动态库。我们可以在设备的<code>/Library/MobileSubstrate/DynamicLibrarie</code>s目录下查看手机上存在着的所有tweak。这个目录下除dylib外还存在着plist与bundle两种格式的文件，plist文件是用来标识该tweak的作用范围，而bundle是tweak所用到的资源文件。</p>
+<h3 id="1-Theos"><a href="#1-Theos" class="headerlink" title="1. Theos"></a>1. Theos</h3><p>Theos是一个越狱开发工具包，,它给我们准备好了一些代码模板、预置一些基本的Makefile脚本。Theos是越狱开发工具的首先，因为其最大的特点就是简单。大道至简，Theos的下载安装、编译发布都比较简单，让开发者把精力放到开发上去。</p>
+<p>而Tweak是Theos的一个功能模块。</p>
+<p>提到Theos还要提到<code>iOSOpenDev</code>，这是另一个开发工具，整合到Xcode里了，使用起来没有<code>Theos</code>方便，这里不做过多介绍。</p>
+<p><a href="https://github.com/theos/theos" target="_blank" rel="noopener">Theos Gihub地址</a></p>
+<h2 id="一：安装ldid"><a href="#一：安装ldid" class="headerlink" title="一：安装ldid"></a>一：安装ldid</h2><p>使用<a href="https://brew.sh/" target="_blank" rel="noopener">brew</a>签名工具：ldid</p>
+<pre><code>brew install ldid
+</code></pre><p>ldid是用来签名iOS可执行文件的，可以在越狱iOS中取代Xcode自带的codesign</p>
+<h2 id="二、修改环境变量"><a href="#二、修改环境变量" class="headerlink" title="二、修改环境变量"></a>二、修改环境变量</h2><p>编辑用户的配置文件</p>
+<pre><code>vim ~/.bash_profile 
+</code></pre><p>在<code>.bash_profile</code>追加下面两行</p>
+<pre><code>export THEOS=~/theos
+export PATH=$THEOS/bin:$PATH
+</code></pre><p>让刚修改的<code>.bash_profile</code>，生效</p>
+<pre><code>source ~/.bash_profile
+</code></pre><h2 id="三、下载theos"><a href="#三、下载theos" class="headerlink" title="三、下载theos"></a>三、下载theos</h2><pre><code>git clone --recursive https://github.com/theos/theos.git $THEOS
+</code></pre><h2 id="四、新建tweak项目"><a href="#四、新建tweak项目" class="headerlink" title="四、新建tweak项目"></a>四、新建tweak项目</h2><p>在工程目录执行<code>nic.pl</code></p>
+<pre><code>nic.pl
+</code></pre><p><img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_01.png" alt=""></p>
+<p>选择<code>13</code>, 这里的选择数字不一定，theos目前有人在维护，会增加一些新功能，数字不是唯一，我们看清楚是<code>iphone/tweak</code>即可</p>
+<p>下面说一些选项的填写：</p>
+<pre><code>Package Name [com.yourcompany.13]:
+</code></pre><p>项目名称，和<code>Bundle Identifier</code>类似，一般为到域名，但和不要和宿主APP一样就好，如我们Hook腾讯视频APP(com.tencent.live4iphone)：<code>com.live4iphone.tweak</code></p>
+<pre><code>Author/Maintainer Name [mac]:
+</code></pre><p>随便写，可以不填，直接回车</p>
+<pre><code>[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]:
+</code></pre><p>这个是宿主APP的<code>Bundle Identifier</code>，不要写错。可以通过Cycript查看（怎么通过Cycript查看，可以参考文章：<a href="./iOS-逆向&lt;3&gt;-砸壳.md">iOS-逆向<3>-砸壳.md</3></a>，里面有介绍）。<code>com.tencent.live4iphone</code></p>
+<pre><code>[iphone/tweak] List of applications to terminate upon installation (space-separated, &apos;-&apos; for none) [SpringBoard]:
+</code></pre><p>直接回车即可。</p>
+<p>至此填写完毕，输出与打印如下图所示：</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_02.jpeg" alt=""></p>
+<h2 id="五、编写Tweak"><a href="#五、编写Tweak" class="headerlink" title="五、编写Tweak"></a>五、编写Tweak</h2><p>一个分为两步，</p>
+<h3 id="5-1-填写Makefile"><a href="#5-1-填写Makefile" class="headerlink" title="5.1 填写Makefile"></a>5.1 填写Makefile</h3><p>在上边填写通过哪个IP地址和端口方位手机</p>
+<pre><code>export THEOS_DEVICE_IP=10.105.12.136
+export THEOS_DEVICE_PORT=22
+</code></pre><p>填写完毕，如下所示</p>
+<pre><code>export THEOS_DEVICE_IP=10.105.12.136
+export THEOS_DEVICE_PORT=22
+
+include $(THEOS)/makefiles/common.mk
+
+TWEAK_NAME = souhutweak
+souhutweak_FILES = Tweak.xm
+
+include $(THEOS_MAKE_PATH)/tweak.mk
+
+after-install::
+    install.exec &quot;killall -9 SpringBoard&quot;
+</code></pre><p>其他信息可以先不用动，在我们编写复杂Tweak时会有介绍，这里我们用默认的。</p>
+<h3 id="5-2-用Reveal分析界面，找到目标class"><a href="#5-2-用Reveal分析界面，找到目标class" class="headerlink" title="5.2 用Reveal分析界面，找到目标class"></a>5.2 用Reveal分析界面，找到目标class</h3><p>打开Tweak.xm后，我们可以看到，有注释会告诉我们怎么填写</p>
+<pre><code>%hook 要hook的雷鸣
+
+// Hooking a class method
+- (instancetype)initWithFrame:(CGRect)frame {
+    return nil;
+}
+
+%end
+</code></pre><p>此时我们要借助于Reveal。这里不介绍详细的步骤，具体可参考文章：<a href="./iOS-逆向&lt;2&gt;-越狱机用 Reveal 调试任意 App 的界面">iOS-逆向<2>-越狱机用 Reveal 调试任意 App 的界面</2></a></p>
+<p> 打开搜狐视频，用Reveal，我们可以看到广告的view是<code>ASAdvertPlayerView</code></p>
+<p> <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_03.png" alt=""></p>
+<p>但是可以看到上面的viewcontroller里显示是<code>ASAdvertPlayerViewController_iPhone</code>，也就是<code>ASAdvertPlayerView</code>是显示view，其逻辑是在<code>ASAdvertPlayerViewController_iPhone</code>里，所以我们最好对这两个类都进行hook</p>
+<p> <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_04.png" alt=""></p>
+<p> 类找到了，hook哪个方法呢，这里就用到<code>class-dump</code>，我们可以把都文件导出，分析找到要hook的哪个类。</p>
+<p>分析<code>ASAdvertPlayerView</code>就很方便的发现其头文件如下：</p>
+<p> <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_05.png" alt=""></p>
+<p>但是，分析<code>ASAdvertPlayerViewController_iPhone</code>时发现这个是<code>ASAdvertPlayerViewController</code>的之类，所以为了更为彻底的hook，我们最好是对<code>ASAdvertPlayerViewController</code>的方法进行hook</p>
+<p> <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_06.png" alt=""></p>
+<p>我们查看<code>ASAdvertPlayerViewController</code>的头文件，可以发现其吃石化方法</p>
+<p> <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_07.png" alt=""></p>
+<h3 id="5-3-编写Tweak-xm进行Hook"><a href="#5-3-编写Tweak-xm进行Hook" class="headerlink" title="5.3 编写Tweak.xm进行Hook"></a>5.3 编写Tweak.xm进行Hook</h3><p>根据上述分析我们编写的hook代码如下:</p>
+<p> Tweak.xm的文件内容如下：</p>
+<pre><code>%hook ASAdvertPlayerView
+
+// Hooking a class method
+- (instancetype)initWithFrame:(CGRect)frame {
+    return nil;
+}
+
+%end
+
+
+%hook ASAdvertPlayerViewController
+
+// Hooking a class method
+- (id)initWithAdvertFrame:(struct CGRect)arg1 delegate:(id)arg2 {
+    return nil;
+}
+
+%end
+</code></pre><p>编写完成后，我们执行以此<code>make</code>,<code>make package</code>,<code>make install</code>，如果没有错误会有两次提升输入手机root密码，然后重启SpringBoard，就可以安装成功。     </p>
+<p>  <img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_08.png" alt=""></p>
+<p> 安装后我们打开搜狐视频就看到已经没有广告了。</p>
+<h2 id="六、Tweak插件的卸载"><a href="#六、Tweak插件的卸载" class="headerlink" title="六、Tweak插件的卸载"></a>六、Tweak插件的卸载</h2><p> 刚才我们的操作是永久有效的，那么如果我们想删除安装插件该怎么操作呢。</p>
+<p> 打开<code>Cydia</code>,找到tab:<code>已安装</code>，切换<code>最近</code>选项卡</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_09.png" alt=""></p>
+<p>点击右上角的卸载，即可卸载插件</p>
+<p><img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_10.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Tonny Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/逆向/" rel="tag"># 逆向</a>
+          
+            <a href="/tags/Theos/" rel="tag"># Theos</a>
+          
+            <a href="/tags/Tweak/" rel="tag"># Tweak</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/12/2019JailBreak/iOS-逆向<3-1>-：使用dumpdecrypted砸壳/" rel="next" title="iOS 逆向<3.1>：使用dumpdecrypted砸壳">
+                <i class="fa fa-chevron-left"></i> iOS 逆向<3.1>：使用dumpdecrypted砸壳
+              </3.1></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/13/Xcode打Debug包的APPIcon带有Build号/" rel="prev" title="Xcode打Debug包的APPIcon带有Build号">
+                Xcode打Debug包的APPIcon带有Build号 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tonny</p>
+              <p class="site-description motion-element" itemprop="description">小镇青年不年轻</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/darren90" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#名词介绍"><span class="nav-number">1.</span> <span class="nav-text">名词介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Tweak"><span class="nav-number">1.1.</span> <span class="nav-text">1. Tweak</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Theos"><span class="nav-number">1.2.</span> <span class="nav-text">1. Theos</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一：安装ldid"><span class="nav-number">2.</span> <span class="nav-text">一：安装ldid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、修改环境变量"><span class="nav-number">3.</span> <span class="nav-text">二、修改环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、下载theos"><span class="nav-number">4.</span> <span class="nav-text">三、下载theos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、新建tweak项目"><span class="nav-number">5.</span> <span class="nav-text">四、新建tweak项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、编写Tweak"><span class="nav-number">6.</span> <span class="nav-text">五、编写Tweak</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-填写Makefile"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 填写Makefile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-用Reveal分析界面，找到目标class"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 用Reveal分析界面，找到目标class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-编写Tweak-xm进行Hook"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 编写Tweak.xm进行Hook</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Tweak插件的卸载"><span class="nav-number">7.</span> <span class="nav-text">六、Tweak插件的卸载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tonny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
