@@ -262,6 +262,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/" itemprop="url">iOS逆向<1>：逆向工程资料整理</1></a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T10:18:37+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h2><p>模拟器32位处理器是<code>i386</code>架构，</p>
+<p>模拟器64位处理器是<code>x86_64</code>架构，</p>
+<p>真机32位处理器是<code>armv7</code>,或者<code>armv7s</code>架构，(<code>armv7s</code>是iPhone5C、<code>armv7</code>是iphone4之前的手机版本)</p>
+<p>真机64位处理器是<code>arm64</code>架构。（iPhone5s之后的手机）</p>
+<h2 id="工具链介绍"><a href="#工具链介绍" class="headerlink" title="工具链介绍"></a>工具链介绍</h2><table>
+<thead>
+<tr>
+<th>工具分类</th>
+<th>工具名称</th>
+<th>使用平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>砸壳</td>
+<td>dumpdecrypted, Clutch</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>查看头文件</td>
+<td>class-dump</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>反汇编</td>
+<td>Hopper, IDA Pro</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>调试，运行一些动态js脚本，查看APP运行时的信息</td>
+<td>Cycript, gdb</td>
+<td>iPhone</td>
+</tr>
+<tr>
+<td>Theos进行动态hook</td>
+<td>Tweak</td>
+<td>mac </td>
+</tr>
+<tr>
+<td>UI分析</td>
+<td>Reveal</td>
+<td>mac</td>
+</tr>
+<tr>
+<td>网络分析</td>
+<td>Charles</td>
+<td>mac</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其它博客资源推荐"><a href="#其它博客资源推荐" class="headerlink" title="其它博客资源推荐"></a>其它博客资源推荐</h2><table>
+<thead>
+<tr>
+<th>Blog</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蒸米的文章</td>
+<td><a href="https://github.com/zhengmin1989/MyArticles" target="_blank" rel="noopener">https://github.com/zhengmin1989/MyArticles</a></td>
+</tr>
+<tr>
+<td>念茜（极客学院 Wiki ）</td>
+<td><a href="http://wiki.jikexueyuan.com/project/ios-security-defense/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/ios-security-defense/</a></td>
+</tr>
+<tr>
+<td>杨君的小黑屋</td>
+<td><a href="http://blog.imjun.net/" target="_blank" rel="noopener">http://blog.imjun.net/</a></td>
+</tr>
+<tr>
+<td>Alone_Monkey</td>
+<td><a href="http://www.blogfshare.com/" target="_blank" rel="noopener">http://www.blogfshare.com/</a></td>
+</tr>
+<tr>
+<td>iPhoneDevWiki</td>
+<td><a href="http://iphonedevwiki.net/index.php/Main_Page" target="_blank" rel="noopener">http://iphonedevwiki.net/index.php/Main_Page</a></td>
+</tr>
+</tbody>
+</table>
+<p>参考资料：</p>
+<p><a href="http://niyaoyao.me/2017/05/09/Learning-Reverse-From-Today-D4/" target="_blank" rel="noopener">iOS 逆向工程资料整理</a></p>
+<p><a href="https://www.jianshu.com/p/9bffa160aa63" target="_blank" rel="noopener">iOS逆向开发学习资料整理
+</a></p>
+<p><a href="https://juejin.im/post/5bc5446b6fb9a05d1d2e3938" target="_blank" rel="noopener">iOS逆向之旅 — 总纲</a> - 掘金里的总结，不错的</p>
+<p><a href="https://bbs.pediy.com/thread-209014.htm" target="_blank" rel="noopener">iOS安全些许经验和学习笔记</a> - AloneMonkey 的总结</p>
+<p><a href="https://wizardforcel.gitbooks.io/ios-sec-wiki/content/chapter1/chapter1.html" target="_blank" rel="noopener">iOS逆向工程简介</a> - 系统介绍了越狱的相关技术栈，但部分技术不够详细，知识点较旧</p>
+<p><a href="http://www.cocoachina.com/ios/20180517/23408.html" target="_blank" rel="noopener">ios 逆向工程-浅析</a> - 整个链路的介绍，还可以的</p>
+<p><a href="https://blog.csdn.net/heiby/article/details/51792151" target="_blank" rel="noopener">移动App入侵与逆向破解技术－iOS篇</a> - CSDN上的大作，还可以的</p>
+<p><a href="https://www.jianshu.com/p/e2eef5f9a09d" target="_blank" rel="noopener">iOS逆向工程优秀博客汇集(持续更新…)</a> - 其实已经没有更新了，不过内容值得参考</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/01/2019/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1527,132 +1736,6 @@ $ pod --version
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/05/01/2015/更改gitignore无效的解决方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tonny">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小镇青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/05/01/2015/更改gitignore无效的解决方法/" itemprop="url">更改gitignore无效的解决方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-01T23:19:14+08:00">
-                2015-05-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有时候我们需要更改<code>.gitignore</code>，但是改了之后并没有效果，需要执行以下的指令使其生效</p>
-<pre><code>git rm -r --cached .
-git add .
-//重新提交即可
-git commit -m &quot;fixed untracked files&quot; 
-</code></pre><p>参考：</p>
-<p><a href="https://stackoverflow.com/questions/11451535/gitignore-is-ignored-by-git" target="_blank" rel="noopener">https://stackoverflow.com/questions/11451535/gitignore-is-ignored-by-git</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1703,7 +1786,7 @@ git commit -m &quot;fixed untracked files&quot;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
