@@ -262,6 +262,322 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/非越狱手机上代码注入实践/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/01/非越狱手机上代码注入实践/" itemprop="url">非越狱手机上代码注入实践</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-01T11:43:05+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/iOS安全之防止调试与防止注入/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tonny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小镇青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/28/iOS安全之防止调试与防止注入/" itemprop="url">iOS安全之防止调试与防止注入</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T19:59:37+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>学习逆向是不是目的，我们是想通过逆向的手段来达到加强我们App安全的目的，那么应该怎么做呢？</p>
+<p>我们知道逆向的终极策略就是动态调试和动态库注入，那么我们能不能在这两个维度加强安全性呢。</p>
+<h2 id="一、防止调试"><a href="#一、防止调试" class="headerlink" title="一、防止调试"></a>一、防止调试</h2><p>调试是通过<code>ptrace</code>进行附加，读取内存中的值，所以我们要能检测调试状态，拒绝调试器附加，那么首先我们要了解Xcode调试的原理，知其然知其所以然，才能从根源上解决问题。</p>
+<h3 id="1-1-Xcode调试原理"><a href="#1-1-Xcode调试原理" class="headerlink" title="1.1 Xcode调试原理"></a>1.1 Xcode调试原理</h3><p><code>Xcode</code>的<code>lldb</code>之所以能调试App，是因为手机运行App，<code>lldb</code>会把调试指令发给手机的<code>debugServer</code>; <code>debugServer</code>是由<code>Xcode</code>第一次运行程序给安装到手机上。</p>
+<p><code>Xcode</code>上查看<code>debugserver</code>路径：<code>Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/11.3/DeveloperDiskImage.dmg</code> 找到<code>DeveloperDiskImage.dmg</code>里的<code>debugserver</code></p>
+<p>手机的根目录下的 <code>/usr/bin debugserver</code>里能找到， </p>
+<p><img src="/2019/02/28/iOS安全之防止调试与防止注入/jailbreak_aniti_04.png" alt=""></p>
+<p>那么<code>debugserver</code>如何调试App的呢？</p>
+<p><code>debugserver</code>是通过<code>ptrace</code>来监听<code>31</code>的<code>Attach</code>附加进程进行的。</p>
+<p><code>ptrace</code>是系统函数，此函数提供一个进程去监听和控制另一个进程，并且可以检测被控制进程的内存和寄存器里面的数据。<code>ptrace</code>可以用来实现断点调试和系统调用跟踪。</p>
+<h3 id="1-2-如何使用ptrace"><a href="#1-2-如何使用ptrace" class="headerlink" title="1.2 如何使用ptrace"></a>1.2 如何使用<code>ptrace</code></h3><p>正常情况下的<code>main.m</code>文件的内容是</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &quot;AppDelegate.h&quot;
+
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
+</code></pre><p>我们改成：</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &quot;AppDelegate.h&quot;    
+#import &lt;dlfcn.h&gt;
+#import &lt;sys/types.h&gt;
+
+typedef int (*ptrace_ptr_t)(int _request, pid_t _pid, caddr_t _addr, int _data);
+#if !defined(PT_DENY_ATTACH)
+#define PT_DENY_ATTACH 31
+#endif  // !defined(PT_DENY_ATTACH)
+
+void disable_gdb() {
+    void* handle = dlopen(0, RTLD_GLOBAL | RTLD_NOW);
+    ptrace_ptr_t ptrace_ptr = dlsym(handle, &quot;ptrace&quot;);
+    ptrace_ptr(PT_DENY_ATTACH, 0, 0, 0);
+    dlclose(handle);
+}
+
+int main(int argc, char *argv[])
+{
+
+#ifndef DEBUG 
+    disable_gdb();
+#endif
+
+
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
+</code></pre><p>除了使用<code>ptrace</code>，我们还可以使用<code>syscall</code>，及其他的方式</p>
+<pre><code>syscall(26, 31, 0,0,0);
+</code></pre><p>使用<code>syscall</code>的代码如下：</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &quot;AppDelegate.h&quot;
+#import &lt;dlfcn.h&gt;
+#import &lt;sys/types.h&gt;
+
+int main(int argc, char * argv[]) {
+#ifndef DEBUG
+    syscall(26, 31, 0,0,0);
+#endif
+
+
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
+</code></pre><p>添加后的现象就是通过<code>release</code>模式连接手机后，会直接断开<code>Xcode</code>，就是防止<code>Xcode</code>进行调试</p>
+<p><img src="/2019/02/28/iOS安全之防止调试与防止注入/jailbreak_aniti_01.gif" alt=""></p>
+<p>可以看到运行结束后，按钮直接变灰色：</p>
+<p><img src="/2019/02/28/iOS安全之防止调试与防止注入/jailbreak_aniti_02.png" alt=""></p>
+<p>都可以有效的预防其他人对我们App在release状态下进行动态调试。</p>
+<h2 id="二、防止动态库注入"><a href="#二、防止动态库注入" class="headerlink" title="二、防止动态库注入"></a>二、防止动态库注入</h2><p>其实越狱后能够注入代码就是通过<code>CydiaSubstrate</code>动态库，动态链接到我们App上的<code>Mach-O</code>文件上，这样程序执行的时候就会加载他们的目标动态库，进而实现对我们App的<code>Hook</code>，而前文刷趣头条的阅读金币也是通过这种方式进行的，所以我们在项目工程里设置一下参数，就可以防止动态库注入，注入后没有效果。</p>
+<p>通过 Xcode 里的 Other Linker Flags 设置如下参数：</p>
+<pre><code>-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null
+</code></pre><p><img src="/2019/02/28/iOS安全之防止调试与防止注入/jailbreak_aniti_03.png" alt=""></p>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>其实即便我们把上边的防止调试与防止注入做到了，还是可以通过<code>Hook C 语言</code>及修改二进制的方式来破坏我们的防护策略，但是我们提高了逆向的成本。</p>
+<p>攻防总是对立存在的，没有绝地的安全，所以我们要加强自身的安全性的策略，提高黑产逆向我们App的成本与难度，相对程度里就是安全的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/2019JailBreak/iOS-逆向<8>：Xcode动态调试配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -498,7 +814,7 @@ export PATH=$THEOS/bin:$PATH
 <p>至此填写完毕，输出与打印如下图所示：</p>
 <p><img src="/2019/02/12/2019JailBreak/iOS-逆向<7>-Theos的安装及Tweak项目介绍/jailbreak_theos_02.jpeg" alt=""></p>
 <h2 id="五、编写Tweak"><a href="#五、编写Tweak" class="headerlink" title="五、编写Tweak"></a>五、编写Tweak</h2><p>一个分为两步，</p>
-<h3 id="5-1-填写Makefile"><a href="#5-1-填写Makefile" class="headerlink" title="5.1 填写Makefile"></a>5.1 填写Makefile</h3><p>在上边填写通过哪个IP地址和端口方位手机</p>
+<h3 id="5-1-填写Makefile"><a href="#5-1-填写Makefile" class="headerlink" title="5.1 填写Makefile"></a>5.1 填写Makefile</h3><p>在上边填写通过哪个IP地址和端口连接手机</p>
 <pre><code>export THEOS_DEVICE_IP=10.105.12.136
 export THEOS_DEVICE_PORT=22
 </code></pre><p>填写完毕，如下所示</p>
@@ -1495,348 +1811,11 @@ cy# [alertView show]
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tonny">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小镇青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/2019JailBreak/iOS-逆向<1>-逆向工程资料整理/" itemprop="url">iOS逆向<1>：逆向工程资料整理</1></a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T10:18:37+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h2><p>模拟器32位处理器是<code>i386</code>架构，</p>
-<p>模拟器64位处理器是<code>x86_64</code>架构，</p>
-<p>真机32位处理器是<code>armv7</code>,或者<code>armv7s</code>架构，(<code>armv7s</code>是iPhone5C、<code>armv7</code>是iphone4之前的手机版本)</p>
-<p>真机64位处理器是<code>arm64</code>架构。（iPhone5s之后的手机）</p>
-<h2 id="工具链介绍"><a href="#工具链介绍" class="headerlink" title="工具链介绍"></a>工具链介绍</h2><table>
-<thead>
-<tr>
-<th>工具分类</th>
-<th>工具名称</th>
-<th>使用平台</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>砸壳</td>
-<td>dumpdecrypted, Clutch</td>
-<td>mac</td>
-</tr>
-<tr>
-<td>查看头文件</td>
-<td>class-dump</td>
-<td>mac</td>
-</tr>
-<tr>
-<td>反汇编</td>
-<td>Hopper, IDA Pro</td>
-<td>mac</td>
-</tr>
-<tr>
-<td>调试，运行一些动态js脚本，查看APP运行时的信息</td>
-<td>Cycript, gdb</td>
-<td>iPhone</td>
-</tr>
-<tr>
-<td>Theos进行动态hook</td>
-<td>Tweak</td>
-<td>mac </td>
-</tr>
-<tr>
-<td>UI分析</td>
-<td>Reveal</td>
-<td>mac</td>
-</tr>
-<tr>
-<td>网络分析</td>
-<td>Charles</td>
-<td>mac</td>
-</tr>
-</tbody>
-</table>
-<h2 id="其它博客资源推荐"><a href="#其它博客资源推荐" class="headerlink" title="其它博客资源推荐"></a>其它博客资源推荐</h2><table>
-<thead>
-<tr>
-<th>Blog</th>
-<th>Link</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>蒸米的文章</td>
-<td><a href="https://github.com/zhengmin1989/MyArticles" target="_blank" rel="noopener">https://github.com/zhengmin1989/MyArticles</a></td>
-</tr>
-<tr>
-<td>念茜（极客学院 Wiki ）</td>
-<td><a href="http://wiki.jikexueyuan.com/project/ios-security-defense/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/ios-security-defense/</a></td>
-</tr>
-<tr>
-<td>杨君的小黑屋</td>
-<td><a href="http://blog.imjun.net/" target="_blank" rel="noopener">http://blog.imjun.net/</a></td>
-</tr>
-<tr>
-<td>Alone_Monkey</td>
-<td><a href="http://www.blogfshare.com/" target="_blank" rel="noopener">http://www.blogfshare.com/</a></td>
-</tr>
-<tr>
-<td>iPhoneDevWiki</td>
-<td><a href="http://iphonedevwiki.net/index.php/Main_Page" target="_blank" rel="noopener">http://iphonedevwiki.net/index.php/Main_Page</a></td>
-</tr>
-</tbody>
-</table>
-<p>参考资料：</p>
-<p><a href="http://niyaoyao.me/2017/05/09/Learning-Reverse-From-Today-D4/" target="_blank" rel="noopener">iOS 逆向工程资料整理</a></p>
-<p><a href="https://www.jianshu.com/p/9bffa160aa63" target="_blank" rel="noopener">iOS逆向开发学习资料整理
-</a></p>
-<p><a href="https://juejin.im/post/5bc5446b6fb9a05d1d2e3938" target="_blank" rel="noopener">iOS逆向之旅 — 总纲</a> - 掘金里的总结，不错的</p>
-<p><a href="https://bbs.pediy.com/thread-209014.htm" target="_blank" rel="noopener">iOS安全些许经验和学习笔记</a> - AloneMonkey 的总结</p>
-<p><a href="https://wizardforcel.gitbooks.io/ios-sec-wiki/content/chapter1/chapter1.html" target="_blank" rel="noopener">iOS逆向工程简介</a> - 系统介绍了越狱的相关技术栈，但部分技术不够详细，知识点较旧</p>
-<p><a href="http://www.cocoachina.com/ios/20180517/23408.html" target="_blank" rel="noopener">ios 逆向工程-浅析</a> - 整个链路的介绍，还可以的</p>
-<p><a href="https://blog.csdn.net/heiby/article/details/51792151" target="_blank" rel="noopener">移动App入侵与逆向破解技术－iOS篇</a> - CSDN上的大作，还可以的</p>
-<p><a href="https://www.jianshu.com/p/e2eef5f9a09d" target="_blank" rel="noopener">iOS逆向工程优秀博客汇集(持续更新…)</a> - 其实已经没有更新了，不过内容值得参考</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/01/2019/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tonny">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小镇青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/01/2019/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-01T15:41:20+08:00">
-                2019-01-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1882,7 +1861,7 @@ cy# [alertView show]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1895,7 +1874,7 @@ cy# [alertView show]
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
